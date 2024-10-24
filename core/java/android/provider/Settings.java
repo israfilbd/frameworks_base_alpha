@@ -6995,27 +6995,6 @@ public final class Settings {
         public static final String DEFAULT_MAX_ALARM_VOLUME = "default_max_alarm_volume";
 
         /**
-         * Edge scrolling haptics intensity
-         * @hide
-         */
-        @Readable
-        public static final String EDGE_SCROLLING_HAPTICS_INTENSITY = "edge_scrolling_haptics_intensity";
-
-        /**
-         * Brightness sliding haptics intensity
-         * @hide
-         */
-        @Readable
-        public static final String BRIGHTNESS_SLIDER_HAPTICS_INTENSITY = "brightness_slider_haptics_intensity";
-
-        /**
-         * Volume sliding haptics intensity
-         * @hide
-         */
-        @Readable
-        public static final String VOLUME_SLIDER_HAPTICS_INTENSITY = "volume_slider_haptics_intensity";
-
-        /**
          * Max visible notification icons in the Statusbar
          * @hide
          */
@@ -7133,6 +7112,17 @@ public final class Settings {
          * @hide
          */
         public static final String RECENTS_LOCKED_TASKS = "recents_locked_tasks";
+
+
+       /**
+        * @hide
+        */
+        public static final String BRIGHTNESS_SLIDER_HAPTICS_INTENSITY = "brightness_slider_haptics_intensity";
+
+        /**
+         * @hide
+         */
+        public static final String VOLUME_SLIDER_HAPTICS_INTENSITY = "volume_slider_haptics_intensity";
 
         /**
          * Keys we no longer back up under the current schema, but want to continue to
@@ -13212,12 +13202,6 @@ public final class Settings {
         public static final String ENABLE_PROJECTION_PRIVACY_INDICATOR = "enable_projection_privacy_indicator";
 
         /**
-         * Back gesture haptics intensity
-         * @hide
-         */
-        public static final String BACK_GESTURE_HAPTIC_INTENSITY = "back_gesture_haptic_intensity";
-
-        /**
          * Enable udfps detection even when screen is off
          * Default value is 0
          * @hide
@@ -13255,7 +13239,7 @@ public final class Settings {
          * Whether or not to vibrate when back gesture is used
          * @hide
          */
-        public static final String BACK_GESTURE_HAPTIC = "back_gesture_haptic";
+        public static final String BACK_GESTURE_HAPTIC_INTENSITY = "back_gesture_haptic_intensity";
 
         /**
          * Whether to show an overlay in the bottom corner of the screen on copying stuff

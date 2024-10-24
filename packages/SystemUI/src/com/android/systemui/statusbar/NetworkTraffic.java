@@ -128,6 +128,7 @@ public class NetworkTraffic extends TextView implements TunerService.Tunable {
     // Used to indicate that the set of sources contributing
     // to current stats have changed.
     private boolean mNetworksChanged = true;
+    private final TunerService mTunerService;
 
     public NetworkTraffic(Context context) {
         this(context, null);
@@ -139,6 +140,7 @@ public class NetworkTraffic extends TextView implements TunerService.Tunable {
 
     public NetworkTraffic(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        mTunerService = Dependency.get(TunerService.class);
         mContext = context;
         mConnectivityManager =
                 (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -371,14 +373,13 @@ public class NetworkTraffic extends TextView implements TunerService.Tunable {
 
         if (!mAttached) {
             mAttached = true;
-            final TunerService tunerService = Dependency.get(TunerService.class);
-            tunerService.addTunable(this, NETWORK_TRAFFIC_LOCATION);
-            tunerService.addTunable(this, NETWORK_TRAFFIC_MODE);
-            tunerService.addTunable(this, NETWORK_TRAFFIC_AUTOHIDE);
-            tunerService.addTunable(this, NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD);
-            tunerService.addTunable(this, NETWORK_TRAFFIC_UNITS);
-            tunerService.addTunable(this, NETWORK_TRAFFIC_REFRESH_INTERVAL);
-            tunerService.addTunable(this, NETWORK_TRAFFIC_HIDEARROW);
+            mTunerService.addTunable(this, NETWORK_TRAFFIC_LOCATION);
+            mTunerService.addTunable(this, NETWORK_TRAFFIC_MODE);
+            mTunerService.addTunable(this, NETWORK_TRAFFIC_AUTOHIDE);
+            mTunerService.addTunable(this, NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD);
+            mTunerService.addTunable(this, NETWORK_TRAFFIC_UNITS);
+            mTunerService.addTunable(this, NETWORK_TRAFFIC_REFRESH_INTERVAL);
+            mTunerService.addTunable(this, NETWORK_TRAFFIC_HIDEARROW);
 
             try {
                 mConnectivityManager.registerNetworkCallback(mRequest, mNetworkCallback);
@@ -405,10 +406,10 @@ public class NetworkTraffic extends TextView implements TunerService.Tunable {
             mContext.unregisterReceiver(mIntentReceiver);
             try {
                 mConnectivityManager.unregisterNetworkCallback(mNetworkCallback);
-            } catch (Exception e) {
-                // Do nothing
-            }
-            Dependency.get(TunerService.class).removeTunable(this);
+                mConnectivityManager.unregisterNetworkCallback(mDefaultNetworkCallback);
+
+            } catch (Exception e) {}
+            mTunerService.removeTunable(this);
             mAttached = false;
         }
     }
